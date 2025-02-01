@@ -1,20 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { SignupForm } from "@/components/shared/SignupForm";
 import { redirect } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-const SignUpPage = () => {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-    const user = localStorage.getItem("user");
-    if (user) {
-      redirect("/");
-    }
-  }, []);
+const page = () => {
+  const user = typeof window !== "undefined" ? localStorage.getItem("user") : null;
+  if (user) {
+    redirect("/");
+  }
   return (
     <div>
       <SignupForm />
@@ -22,4 +16,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default page;
