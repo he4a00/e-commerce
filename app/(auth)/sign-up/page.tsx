@@ -2,13 +2,18 @@
 
 import { SignupForm } from "@/components/shared/SignupForm";
 import { redirect } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const page = () => {
-  const user = localStorage.getItem("user");
-  if (user) {
-    redirect("/");
-  }
+const SignUpPage = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    const user = localStorage.getItem("user");
+    if (user) {
+      redirect("/");
+    }
+  }, []);
   return (
     <div>
       <SignupForm />
@@ -16,4 +21,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SignUpPage;
