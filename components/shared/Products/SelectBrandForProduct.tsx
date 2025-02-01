@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import {
   Select,
@@ -11,10 +12,7 @@ import { useGetAllBrandsQuery } from "@/app/store/slices/api/brands/brandSlice";
 const SelectBrandForProduct = ({ field }: { field: any }) => {
   const { data: brands } = useGetAllBrandsQuery({});
   return (
-    <Select
-      value={field.value}
-      onValueChange={field.onChange}
-    >
+    <Select value={field.value} onValueChange={field.onChange}>
       <SelectTrigger className="w-full">
         <SelectValue placeholder="Choose Brand" />
       </SelectTrigger>
