@@ -10,15 +10,32 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { SidebarLinks } from "@/constants";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export function AppSidebar() {
-  const pathname = usePathname(); // Get the current path
+  const pathname = usePathname();
 
   return (
     <Sidebar className="w-64 bg-gray-100 dark:bg-gray-900 h-screen">
       <SidebarContent>
+        <div className="p-4 border-b border-gray-200 dark:border-gray-800">
+          <Link href="/">
+            <div className="flex items-center gap-2">
+              <Image
+                src="/images/cat/category-1.png"
+                alt="Logo"
+                width={50}
+                height={50}
+              />
+              <span className="text-lg font-semibold text-gray-900 dark:text-white">
+                Home
+              </span>
+            </div>
+          </Link>
+        </div>
+
         {SidebarLinks.map((group) => (
           <SidebarGroup key={group.name} className="mb-6">
             <SidebarGroupLabel className="flex items-center text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">

@@ -76,29 +76,37 @@ const DailyBestSells = () => {
               className="w-full"
             >
               <CarouselContent className="-ml-2 sm:-ml-4">
-                {allProducts?.result?.items?.map((product: Product) => (
-                  <CarouselItem
-                    key={product.productID}
-                    className="pl-2 sm:pl-4 basis-full xs:basis-1/2 lg:basis-1/2 gap-5"
-                  >
-                    <div className="p-1">
-                      <ProductCard
-                        productFilesUrl={product.productFilesUrl}
-                        productId={product.productID}
-                        productName={product.productName}
-                        productDescription={product.productDescription}
-                        productPrice={product.productPrice}
-                        discount={product.discount}
-                        stockQuantity={product.stockQuantity}
-                        warrantyPeriod={product.warrantyPeriod}
-                        color={product.color}
-                        modelNumber={product.modelNumber}
-                        brandName={product.brandName}
-                        categoryName={product.categoryName}
-                      />
-                    </div>
-                  </CarouselItem>
-                ))}
+                {allProducts?.result?.items?.length === 0 ? (
+                  <div className="p-10">
+                    <p className="text-center text-gray-500">
+                      No products found.
+                    </p>
+                  </div>
+                ) : (
+                  allProducts?.result?.items?.map((product: Product) => (
+                    <CarouselItem
+                      key={product.productID}
+                      className="pl-2 sm:pl-4 basis-full xs:basis-1/2 lg:basis-1/2 gap-5"
+                    >
+                      <div className="p-1">
+                        <ProductCard
+                          productFilesUrl={product.productFilesUrl}
+                          productId={product.productID}
+                          productName={product.productName}
+                          productDescription={product.productDescription}
+                          productPrice={product.productPrice}
+                          discount={product.discount}
+                          stockQuantity={product.stockQuantity}
+                          warrantyPeriod={product.warrantyPeriod}
+                          color={product.color}
+                          modelNumber={product.modelNumber}
+                          brandName={product.brandName}
+                          categoryName={product.categoryName}
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))
+                )}
               </CarouselContent>
               <div className="flex items-center justify-end gap-2 mt-2 sm:mt-4 px-2 sm:px-4">
                 <CarouselPrevious className="static translate-x-0 translate-y-0 h-8 w-8 sm:h-10 sm:w-10 hover:bg-primary hover:text-white" />
