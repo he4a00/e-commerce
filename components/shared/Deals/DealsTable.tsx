@@ -73,7 +73,11 @@ export function DealsTable() {
   return (
     <div className="space-y-4">
       <Table>
-        <TableCaption>A list of your recent brands.</TableCaption>
+        <TableCaption>
+          {allDeals?.result.items.length === 0
+            ? "No deals found"
+            : "A list of your recent deals."}
+        </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Product Name</TableHead>

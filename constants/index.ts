@@ -28,10 +28,7 @@ export const SidebarLinks = [
   {
     name: "Deals",
     icon: Logs,
-    subLinks: [
-      { name: "Add Deal", url: "deals/add-deal", icon: Plus },
-      { name: "Deals", url: "deals", icon: Tally4 },
-    ],
+    subLinks: [{ name: "Deals", url: "deals", icon: Tally4 }],
   },
   {
     name: "Delivery",
@@ -44,8 +41,6 @@ export const SidebarLinks = [
   {
     name: "Orders",
     icon: Logs,
-    subLinks: [
-      { name: "Orders", url: "orders", icon: Tally4 },
-    ],
+    subLinks: [{ name: "Orders", url: "orders", icon: Tally4 }],
   },
 ];

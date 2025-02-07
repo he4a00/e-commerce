@@ -25,13 +25,18 @@ export function OrderTable() {
 
   return (
     <Table>
-      <TableCaption>A list of your recent orders.</TableCaption>
+      <TableCaption>
+        {allOrders?.result.length === 0
+          ? "No orders found"
+          : "A list of your recent orders."}
+      </TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Order Number</TableHead>
           <TableHead>Items Number</TableHead>
           <TableHead>Order Staus</TableHead>
           <TableHead>Total Price</TableHead>
+
           <TableHead>Order Date</TableHead>
           <TableHead>User Email</TableHead>
           <TableHead className="text-right">Actions</TableHead>

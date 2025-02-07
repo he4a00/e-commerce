@@ -86,7 +86,11 @@ export function ProductsTable() {
   return (
     <div className="space-y-4">
       <Table>
-        <TableCaption>A list of your recent products.</TableCaption>
+        <TableCaption>
+          {allProducts?.result.items.length === 0
+            ? "No products found"
+            : "A list of your recent products."}
+        </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[200px]">Product Name</TableHead>

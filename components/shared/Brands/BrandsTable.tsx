@@ -23,10 +23,15 @@ export function BrandsTable() {
 
   return (
     <Table>
-      <TableCaption>A list of your recent brands.</TableCaption>
+      <TableCaption>
+        {allBrands?.result.length === 0
+          ? "No brands found"
+          : "A list of your recent brands."}
+      </TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Brand name</TableHead>
+
           <TableHead className="text-right">Actions</TableHead>
         </TableRow>
       </TableHeader>

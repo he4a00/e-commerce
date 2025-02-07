@@ -22,6 +22,7 @@ import SelectCategoryForProduct from "./SelectCategoryForProduct";
 import SelectBrandForProduct from "./SelectBrandForProduct";
 import { Create_Product } from "@/types";
 import { toast } from "@/hooks/use-toast";
+import { redirect } from "next/navigation";
 
 export const AddProductForm = () => {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -47,11 +48,10 @@ export const AddProductForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast({
-        title: "Product created successfully",
-      });
+      redirect("/admin/products");
+      form.reset();
     }
-  }, [isSuccess]);
+  }, [isSuccess, form]);
 
   function onSubmit(values: z.infer<typeof ProductValidation>) {
     if (!imageFiles.length) return;

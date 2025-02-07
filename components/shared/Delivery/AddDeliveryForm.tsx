@@ -16,6 +16,7 @@ import { DeliveryValidation } from "@/lib/validations/Delivery";
 import { useAddDeliveryMethodMutation } from "@/app/store/slices/api/delivery/deliverySlice";
 import { useToast } from "@/hooks/use-toast";
 import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 const AddDeliveryForm = () => {
   const form = useForm({
@@ -35,12 +36,10 @@ const AddDeliveryForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast({
-        title: "Delivery Method added",
-      });
+      redirect("/admin/delivery");
       form.reset();
     }
-  }, [isSuccess, toast, form]);
+  }, [isSuccess, form, toast]);
 
   function onSubmit(values: z.infer<typeof DeliveryValidation>) {
     addDeliveryMethod(values);

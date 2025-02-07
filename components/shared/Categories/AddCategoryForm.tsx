@@ -28,7 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { toast } from "@/hooks/use-toast";
+import { redirect } from "next/navigation";
 
 export const AddCategoryForm = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -54,11 +54,10 @@ export const AddCategoryForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast({
-        title: "Category created successfully",
-      });
+      form.reset();
+      redirect("/admin/categories");
     }
-  }, [isSuccess]);
+  }, [isSuccess, form]);
 
   function onSubmit(values: z.infer<typeof CategoryValidation>) {
     if (!imageFile) return;

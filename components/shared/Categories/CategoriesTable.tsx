@@ -31,7 +31,11 @@ export function CategoriesTable() {
 
   return (
     <Table>
-      <TableCaption>A list of your recent cateories.</TableCaption>
+      <TableCaption>
+        {allCategories?.result.length === 0
+          ? "No categories found"
+          : "A list of your recent categories."}
+      </TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead className="w-[200px]">Category Image</TableHead>

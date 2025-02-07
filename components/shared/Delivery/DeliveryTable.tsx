@@ -26,7 +26,11 @@ export function DeliveryTable() {
 
   return (
     <Table>
-      <TableCaption>A list of your recent brands.</TableCaption>
+      <TableCaption>
+        {allDeliveryMethods?.result.length === 0
+          ? "No delivery methods found"
+          : "A list of your recent delivery methods."}
+      </TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Delivery name</TableHead>

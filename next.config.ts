@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
         pathname: "/Upload/**",
       },
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "ecommerce1234.runasp.net",
         pathname: "/Upload/**",
         port: "",

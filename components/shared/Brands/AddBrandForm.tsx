@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import {
   Form,
@@ -16,9 +18,11 @@ import Link from "next/link";
 import { BrandValidation } from "@/lib/validations/Brand";
 import { useCreateBrandMutation } from "@/app/store/slices/api/brands/brandSlice";
 import { useEffect } from "react";
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
+import { redirect } from "next/navigation";
 
 const AddBrandForm = () => {
+  const { toast } = useToast();
   const form = useForm({
     resolver: zodResolver(BrandValidation),
     defaultValues: {
@@ -27,17 +31,22 @@ const AddBrandForm = () => {
   });
 
   const [createBrand, { isLoading, isSuccess }] = useCreateBrandMutation();
-
   useEffect(() => {
     if (isSuccess) {
+      redirect("/admin/brands");
+      form.reset();
+    }
+  }, [isSuccess, form, toast]);
+
+  async function onSubmit(values: z.infer<typeof BrandValidation>) {
+    try {
+      await createBrand(values).unwrap();
+    } catch (error: any) {
       toast({
-        title: "Brand created successfully",
+        title: "Error creating brand",
+        variant: "destructive",
       });
     }
-  }, [isSuccess]);
-
-  function onSubmit(values: z.infer<typeof BrandValidation>) {
-    createBrand(values);
   }
 
   return (

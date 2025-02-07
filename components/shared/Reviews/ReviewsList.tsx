@@ -84,95 +84,113 @@ const ReviewsList = ({ productID }: { productID: string }) => {
     }
     return items;
   };
-
-  console.log(productReviews);
   return (
     <div className="space-y-4">
-      {productReviews?.result?.items.map((review: ReviewListProps) => (
-        <Card
-          key={review.reviewID}
-          className="border-input hover:border-green-500 transition-colors"
-        >
+      {productReviews?.result?.items.length === 0 ? (
+        <Card className="border-input">
           <CardContent className="p-4">
-            <div className="flex gap-4">
-              <Avatar>
-                <AvatarFallback className="bg-primary/10">
-                  {review.userName
-                    .split(" ")
-                    .map((name) => name[0])
-                    .join("")
-                    .toUpperCase()
-                    .slice(0, 2)}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1 space-y-2">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <p className="font-semibold text-green-600">
-                        {review.userName}
-                      </p>
-                      <StarRating rating={review.rating} />
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      {new Date(review.reviewDate).toLocaleDateString("en-US", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                      })}{" "}
-                      •{" "}
-                      {new Date(review.reviewDate).toLocaleTimeString("en-US", {
-                        hour: "numeric",
-                        minute: "numeric",
-                      })}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2 flex-col md:flex-row lg:flex-row">
-                    <UpVoteButton
-                      reviewID={review.reviewID}
-                      totalUpVotes={review.totalUpVotes}
-                      hasUpVoted={review.hasUpVoted}
-                    />
-                    <DownVoteButton
-                      reviewID={review.reviewID}
-                      totalDownVotes={review.totalDownVotes}
-                      hasDownVoted={review.hasDownVoted}
-                    />
-                  </div>
-                </div>
-                <p className="text-sm break-all break-words">{review.reviewText}</p>
-              </div>
-            </div>
+            <p className="text-center text-muted-foreground">
+              No reviews yet. Be the first to review this product!
+            </p>
           </CardContent>
         </Card>
-      ))}
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              onClick={() => handlePageChange(currentPage - 1)}
-              className={
-                currentPage === 1
-                  ? "pointer-events-none opacity-50"
-                  : "cursor-pointer"
-              }
-            />
-          </PaginationItem>
+      ) : (
+        productReviews?.result?.items.map((review: ReviewListProps) => (
+          <Card
+            key={review.reviewID}
+            className="border-input hover:border-green-500 transition-colors"
+          >
+            <CardContent className="p-4">
+              <div className="flex gap-4">
+                <Avatar>
+                  <AvatarFallback className="bg-primary/10">
+                    {review.userName
+                      .split(" ")
+                      .map((name) => name[0])
+                      .join("")
+                      .toUpperCase()
+                      .slice(0, 2)}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1 space-y-2">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <p className="font-semibold text-green-600">
+                          {review.userName}
+                        </p>
+                        <StarRating rating={review.rating} />
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        {new Date(review.reviewDate).toLocaleDateString(
+                          "en-US",
+                          {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          }
+                        )}{" "}
+                        •{" "}
+                        {new Date(review.reviewDate).toLocaleTimeString(
+                          "en-US",
+                          {
+                            hour: "numeric",
+                            minute: "numeric",
+                          }
+                        )}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2 flex-col md:flex-row lg:flex-row">
+                      <UpVoteButton
+                        reviewID={review.reviewID}
+                        totalUpVotes={review.totalUpVotes}
+                        hasUpVoted={review.hasUpVoted}
+                      />
+                      <DownVoteButton
+                        reviewID={review.reviewID}
+                        totalDownVotes={review.totalDownVotes}
+                        hasDownVoted={review.hasDownVoted}
+                      />
+                    </div>
+                  </div>
+                  <p className="text-sm break-all break-words">
+                    {review.reviewText}
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))
+      )}
+      {productReviews?.result?.items.length > 0 && (
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                onClick={() => handlePageChange(currentPage - 1)}
+                className={
+                  currentPage === 1
+                    ? "pointer-events-none opacity-50"
+                    : "cursor-pointer"
+                }
+              />
+            </PaginationItem>
 
-          {renderPaginationItems()}
+            {renderPaginationItems()}
 
-          <PaginationItem>
-            <PaginationNext
-              onClick={() => handlePageChange(currentPage + 1)}
-              className={
-                currentPage === totalPages
-                  ? "pointer-events-none opacity-50"
-                  : "cursor-pointer"
-              }
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+            <PaginationItem>
+              <PaginationNext
+                onClick={() => handlePageChange(currentPage + 1)}
+                className={
+                  currentPage === totalPages
+                    ? "pointer-events-none opacity-50"
+                    : "cursor-pointer"
+                }
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
     </div>
   );
 };
