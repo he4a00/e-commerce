@@ -7,7 +7,8 @@ import {
 } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://ecommerce1234.runasp.net/api/",
+  baseUrl:
+    process.env.NEXT_PUBLIC_API_URL || "https://ecommerce1234.runasp.net/api/",
   credentials: "include",
 
   prepareHeaders: (headers, { getState }) => {
