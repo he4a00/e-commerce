@@ -41,6 +41,7 @@ const ProductsDeals = () => {
               avgRating={deal.avgRating}
               totalOrders={deal.totalOrders}
               totalReviews={deal.totalReviews}
+              productPriceAfterDiscount={deal.productPriceAfterDiscount}
             />
           ))}
         </div>

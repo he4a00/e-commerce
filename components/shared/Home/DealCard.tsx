@@ -119,11 +119,11 @@ export default function DealCard({
           <div className="flex items-center justify-between">
             <div className="space-y-1">
               <div className="text-2xl font-bold text-primary">
-                ${productPrice?.toFixed(2)}
+                ${productPriceAfterDiscount?.toFixed(2)}
               </div>
               {discount > 0 && (
                 <div className="text-sm text-muted-foreground line-through">
-                  ${((productPrice || 0) / (1 - discount / 100)).toFixed(2)}
+                  ${productPrice?.toFixed(2)}
                 </div>
               )}
             </div>
