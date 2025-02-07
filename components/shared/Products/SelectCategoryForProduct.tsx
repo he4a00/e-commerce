@@ -13,12 +13,16 @@ const SelectCategoryForProduct = ({ field }: { field: any }) => {
   const { data: categories } = useGetAllSubCategoriesQuery({});
   return (
     <Select value={field.value} onValueChange={field.onChange}>
-      <SelectTrigger className="w-fit">
+      <SelectTrigger className="w-full">
         <SelectValue placeholder="Choose Category" />
       </SelectTrigger>
       <SelectContent>
         {categories?.result?.map((category: any) => (
-          <SelectItem key={category.categoryID} value={category.categoryID}>
+          <SelectItem
+            key={category.categoryID}
+            value={category.categoryID}
+            className="truncate"
+          >
             {category.categoryName}
           </SelectItem>
         ))}

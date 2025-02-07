@@ -1,7 +1,6 @@
 "use client";
 
 import { useGetTopProductsQuery } from "@/app/store/slices/api/products/productSlice";
-import SelectCategoryForProduct from "../Products/SelectCategoryForProduct";
 import ProductCard from "./ProductCard";
 import { Product } from "@/types";
 import Loader from "../Loader";
@@ -23,7 +22,6 @@ const PopularProducts = () => {
     <div className="flex flex-col gap-4 pt-10 px-4 md:px-6 xl:px-8">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Popular Products</h1>
-        <SelectCategoryForProduct field="category" />
       </div>
       {topProducts?.result?.items.length === 0 ? (
         <div className="p-10">

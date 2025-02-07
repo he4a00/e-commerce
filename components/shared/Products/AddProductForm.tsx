@@ -23,6 +23,7 @@ import SelectBrandForProduct from "./SelectBrandForProduct";
 import { Create_Product } from "@/types";
 import { toast } from "@/hooks/use-toast";
 import { redirect } from "next/navigation";
+import { Textarea } from "@/components/ui/textarea";
 
 export const AddProductForm = () => {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -148,7 +149,7 @@ export const AddProductForm = () => {
                 <FormItem>
                   <FormLabel>Product Description</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Product Description" />
+                    <Textarea {...field} placeholder="Product Description" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
