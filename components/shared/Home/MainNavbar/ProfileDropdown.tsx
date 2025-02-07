@@ -25,12 +25,6 @@ const ProfileDropdown = () => {
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Profile
-          <DropdownMenuShortcut>
-            <User className="w-5 h-5" />
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
         <Link href="/orders">
           <DropdownMenuItem>
             Orders

@@ -1,7 +1,7 @@
 import { useDownVoteMutation } from "@/app/store/slices/api/votes/voteSlice";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { ThumbsUp } from "lucide-react";
+import { ThumbsDown } from "lucide-react";
 import React, { useEffect } from "react";
 
 interface UpVoteProps {
@@ -38,7 +38,7 @@ const DownVoteButton = ({
       disabled={isLoading}
       onClick={() => downVote(reviewID as string)}
     >
-      <ThumbsUp className={`w-4 h-4 ${hasDownVoted ? "fill-current" : ""}`} />
+      <ThumbsDown className={`w-4 h-4 ${hasDownVoted ? "fill-current" : ""}`} />
       <span>{totalDownVotes}</span>
     </Button>
   );

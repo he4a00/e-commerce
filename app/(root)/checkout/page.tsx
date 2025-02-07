@@ -18,6 +18,7 @@ import { usePlaceOrderMutation } from "@/app/store/slices/api/order/orderSlice";
 import { useGetAddressByUserQuery } from "@/app/store/slices/api/address/addressSlice";
 import { useGetUserCartQuery } from "@/app/store/slices/api/cart/cartSlice";
 import { toast } from "@/hooks/use-toast";
+import { redirect } from "next/navigation";
 
 const steps = [
   {
@@ -39,7 +40,8 @@ const steps = [
 
 export default function Checkout() {
   const [currentStep, setCurrentStep] = useState("delivery");
-  const [placeOrder, { isSuccess: isOrderSuccess, isLoading }] = usePlaceOrderMutation();
+  const [placeOrder, { isSuccess: isOrderSuccess, isLoading }] =
+    usePlaceOrderMutation();
   const { data: userAddresses } = useGetAddressByUserQuery({});
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] =
     useState<string>("");
@@ -84,8 +86,12 @@ export default function Checkout() {
       toast({
         title: "Order placed successfully",
       });
+      redirect("/orders");
     }
   };
+
+  const canContinue =
+    currentStep === "delivery" ? !!selectedDeliveryMethod : true;
 
   return (
     <div className="container mx-auto py-8">
@@ -142,6 +148,7 @@ export default function Checkout() {
             {currentStep === "delivery" && (
               <DeliveryChoose
                 onDeliveryMethodSelect={handleDeliveryMethodSelect}
+                selectedDeliveryMethod={selectedDeliveryMethod}
               />
             )}
 
@@ -162,7 +169,7 @@ export default function Checkout() {
                   currentStep === "payment" ? handlePlaceOrder : handleNext
                 }
                 className="bg-emerald-500 hover:bg-emerald-600"
-                disabled={isLoading}
+                disabled={isLoading || !canContinue}
               >
                 {currentStep === "payment" ? "Place Order" : "Continue"}
               </Button>

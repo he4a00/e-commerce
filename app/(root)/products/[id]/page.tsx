@@ -20,6 +20,8 @@ export default function ProductDetail() {
   const { data: wishlistData } = useGetUserWishlistQuery({});
 
   console.log(productData);
+
+  console.log(productData);
   const [selectedImage, setSelectedImage] = useState(0);
 
   const productImages = productData?.result?.productFilesUrl || [];
@@ -81,16 +83,21 @@ export default function ProductDetail() {
           </h1>
 
           <div className="flex items-center gap-2">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`h-5 w-5 ${
-                  i < 4
-                    ? "fill-yellow-400 text-yellow-400"
-                    : "fill-gray-200 text-gray-200"
-                }`}
-              />
-            ))}
+            {[...Array(5)].map((_, i) => {
+              const ratingValue = productData?.result?.avgRating || 0;
+              return (
+                <Star
+                  key={i}
+                  className={`h-5 w-5 ${
+                    i + 1 <= Math.floor(ratingValue)
+                      ? "fill-yellow-400 text-yellow-400" // full star
+                      : i < ratingValue
+                      ? "fill-yellow-400/50 text-yellow-400" // partial star
+                      : "fill-gray-200 text-gray-200" // empty star
+                  }`}
+                />
+              );
+            })}
             <span className="text-sm text-gray-500">
               ({productData?.result?.totalReviews} reviews)
             </span>
@@ -98,10 +105,10 @@ export default function ProductDetail() {
 
           <div className="flex items-center gap-4">
             <span className="text-4xl font-bold text-emerald-600">
-              ${productData?.result?.productPrice}
+              ${productData?.result?.productPriceAfterDiscount}
             </span>
             <span className="text-xl text-gray-400 line-through">
-              ${productData?.result?.productPriceAfterDiscount}
+              ${productData?.result?.productPrice}
             </span>
             <span className="text-sm font-medium text-emerald-600">
               {productData?.result?.discount}% Off

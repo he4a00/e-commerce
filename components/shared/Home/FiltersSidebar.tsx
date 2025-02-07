@@ -1,8 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Star } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Filter } from "lucide-react";
 import FilterByPriceRange from "../Filters/FilterByPriceRange";
@@ -34,7 +32,7 @@ export default function FiltersSidebar({
         )}
 
         {/* Rating Filter */}
-        <div>
+        {/* <div>
           <h3 className="text-base font-medium mb-2">Rating</h3>
           <div className="space-y-2">
             <label className="flex items-center space-x-2">
@@ -78,26 +76,7 @@ export default function FiltersSidebar({
               </span>
             </label>
           </div>
-        </div>
-
-        {/* Item Condition */}
-        <div>
-          <h3 className="text-base font-medium mb-2">Item Condition</h3>
-          <div className="space-y-2">
-            <label className="flex items-center space-x-2">
-              <Checkbox />
-              <span className="text-sm">New (1506)</span>
-            </label>
-            <label className="flex items-center space-x-2">
-              <Checkbox />
-              <span className="text-sm">Refurbished (27)</span>
-            </label>
-            <label className="flex items-center space-x-2">
-              <Checkbox />
-              <span className="text-sm">Used (45)</span>
-            </label>
-          </div>
-        </div>
+        </div> */}
 
         {/* Filter Button - Show only on mobile */}
         <div className="md:hidden">

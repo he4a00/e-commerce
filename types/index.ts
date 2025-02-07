@@ -75,8 +75,10 @@ export type Deal = {
   categoryName?: string;
   productImageUrl?: string;
   isInStock?: boolean;
+  productPriceAfterDiscount?: number;
   producttID?: string;
 };
+
 
 export type ParentCategory = {
   categoryID: string;
@@ -144,6 +146,9 @@ export interface Order {
     productName: string;
     quantity: number;
   }[];
+  deliveryMethod: {
+    price: number
+  };
   orderNumber: string;
   orderStatus: string;
   totalPrice: number;

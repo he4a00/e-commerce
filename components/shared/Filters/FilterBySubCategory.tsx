@@ -24,7 +24,7 @@ const FilterBySubCategoryName = ({
 
   return (
     <div>
-      <h3 className="text-base font-medium mb-2">Sub Category</h3>
+      <h3 className="text-base font-medium mb-2">Category</h3>
       <div className="space-y-2">
         {categories?.result.map((subCat: any) => (
           <label

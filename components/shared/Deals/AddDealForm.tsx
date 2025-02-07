@@ -16,9 +16,8 @@ import { DealValidation } from "@/lib/validations/Deal";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAddDealMutation } from "@/app/store/slices/api/deals/dealSlice";
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
 import { useEffect } from "react";
-import { toast } from "@/hooks/use-toast";
 
 const AddDealForm = () => {
   const { id: paramProductID } = useParams();
@@ -38,9 +37,7 @@ const AddDealForm = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast({
-        title: "Deal created successfully",
-      });
+      redirect("/admin/deals")
     }
   }, [isSuccess]);
 

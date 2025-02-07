@@ -31,6 +31,7 @@ interface ProductCardProps {
   brandName: string;
   categoryName: string;
   productInWishlist?: boolean;
+  productPriceAfterDiscount?: number;
 }
 
 export default function ProductCard({
@@ -160,10 +161,15 @@ export default function ProductCard({
                 </Badge>
               </div>
 
-              {warrantyPeriod && (
+              {warrantyPeriod !== 0 ? (
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Shield className="h-4 w-4" />
                   {warrantyPeriod} months warranty
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 text-muted-foreground">
+                  <Shield className="h-4 w-4" />
+                  No warranty
                 </div>
               )}
 
@@ -187,7 +193,7 @@ export default function ProductCard({
             productName={productName}
             stockQuantity={stockQuantity}
             pictureUrl={productFilesUrl[0]}
-            price={productPrice}
+            price={discountedPrice || 0}
             variant="simple"
           />
           <AddToWishlist

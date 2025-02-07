@@ -2,7 +2,6 @@
 
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { useGetUserWishlistQuery } from "@/app/store/slices/api/wishlist/wishlistSlice";
 import {
   Table,
@@ -47,54 +46,51 @@ export default function Wishlist() {
               <TableHead>Product</TableHead>
               <TableHead>Price</TableHead>
               <TableHead>Stock Status</TableHead>
-              <TableHead>Action</TableHead>
               <TableHead className="w-[70px]">Remove</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {wishlistProducts?.result.map((product: WishlistProduct, index: number) => (
-              <TableRow key={index}>
-                <TableCell>
-                  <Checkbox />
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-4">
-                    <div className="w-20 h-20 bg-white rounded-lg border p-2">
-                      <Image
-                        src={product.productImageURL || "/placeholder.svg"}
-                        alt={product.productName}
-                        width={80}
-                        height={80}
-                        className="w-full h-full object-contain"
-                      />
+            {wishlistProducts?.result.map(
+              (product: WishlistProduct, index: number) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <Checkbox />
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-4">
+                      <div className="w-20 h-20 bg-white rounded-lg border p-2">
+                        <Image
+                          src={product.productImageURL || "/placeholder.svg"}
+                          alt={product.productName}
+                          width={80}
+                          height={80}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-emerald-500 font-medium mb-1">
+                          {product.productName}
+                        </h3>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-emerald-500 font-medium mb-1">
-                        {product.productName}
-                      </h3>
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <span className="text-emerald-500 font-medium">
-                    ${product.productPrice}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <span className="px-3 py-1 rounded-full text-emerald-500 bg-emerald-50 text-sm">
-                    {product.isInStock ? "In Stock" : "Out of Stock"}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <Button className="bg-emerald-500 hover:bg-emerald-600">
-                    Add to cart
-                  </Button>
-                </TableCell>
-                <TableCell>
-                  <RemoveFromWishlist productID={product.productID} />
-                </TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                  <TableCell>
+                    <span className="text-emerald-500 font-medium">
+                      ${product.productPrice}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="px-3 py-1 rounded-full text-emerald-500 bg-emerald-50 text-sm">
+                      {product.isInStock ? "In Stock" : "Out of Stock"}
+                    </span>
+                  </TableCell>
+
+                  <TableCell>
+                    <RemoveFromWishlist productID={product.productID} />
+                  </TableCell>
+                </TableRow>
+              )
+            )}
           </TableBody>
         </Table>
       </div>

@@ -11,6 +11,7 @@ import AddToCart from "@/components/shared/Home/AddToCart";
 export default function DealCard({
   endDate,
   productName,
+  productPriceAfterDiscount,
   productPrice,
   productImageUrl,
   isInStock,
@@ -136,7 +137,7 @@ export default function DealCard({
             productName={productName || ""}
             stockQuantity={isInStock ? 1 : 0}
             pictureUrl={productImageUrl || ""}
-            price={productPrice || 0}
+            price={productPriceAfterDiscount || 0}
             variant="simple"
           />
         </div>

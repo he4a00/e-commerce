@@ -15,6 +15,8 @@ const DealsProducts = () => {
 
   const displayProducts = dealProducts?.result?.items;
 
+  console.log(displayProducts);
+
   return (
     <div className="container mx-auto px-4 pt-10 w-full min-h-screen">
       {/* items number found and the sub category filter */}

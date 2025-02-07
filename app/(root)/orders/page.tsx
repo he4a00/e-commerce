@@ -30,22 +30,9 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import { useGetOrdersByUserQuery } from "@/app/store/slices/api/order/orderSlice";
+import { Order } from "@/types";
 
 // Types for our order data
-interface Order {
-  orderID: string;
-  orderDate: string;
-  orderItems: {
-    orderItemID: string;
-    price: number;
-    productImage: string;
-    productName: string;
-    quantity: number;
-  }[];
-  orderNumber: string;
-  orderStatus: string;
-  totalPrice: number;
-}
 
 // Status badge styling helper
 const getStatusColor = (status: string) => {
@@ -187,11 +174,19 @@ export default function OrdersPage() {
                       )}
                     </div>
                   ))}
-                  <div className="flex items-center justify-between pt-4">
-                    <Label>Total</Label>
-                    <p className="text-lg font-bold">
-                      ${order.totalPrice.toFixed(2)}
-                    </p>
+                  <div className="flex flex-col gap-2 pt-4">
+                    <div className="flex items-center justify-between">
+                      <Label>Delivery Fee</Label>
+                      <p className="text-muted-foreground">
+                        ${order.deliveryMethod.price.toFixed(2)}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <Label>Total</Label>
+                      <p className="text-lg font-bold">
+                        ${order.totalPrice.toFixed(2)}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </CardContent>

@@ -4,20 +4,16 @@ import { useGetAllDeliveryMethodsQuery } from "@/app/store/slices/api/delivery/d
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Add_Delivery_Method } from "@/types";
-import { useState } from "react";
 
 interface DeliveryChooseProps {
   onDeliveryMethodSelect: (methodId: string) => void;
+  selectedDeliveryMethod: string;
 }
 
-const DeliveryChoose = ({ onDeliveryMethodSelect }: DeliveryChooseProps) => {
+const DeliveryChoose = ({ onDeliveryMethodSelect, selectedDeliveryMethod }: DeliveryChooseProps) => {
   const { data: deliveryMethods } = useGetAllDeliveryMethodsQuery({});
-  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState<
-    string | null
-  >(null);
 
   const handleDeliveryMethodChange = (value: string) => {
-    setSelectedDeliveryMethod(value);
     onDeliveryMethodSelect(value);
   };
 
@@ -25,7 +21,7 @@ const DeliveryChoose = ({ onDeliveryMethodSelect }: DeliveryChooseProps) => {
     <RadioGroup
       defaultValue="standard"
       className="grid gap-4"
-      value={selectedDeliveryMethod || ""}
+      value={selectedDeliveryMethod}
       onValueChange={handleDeliveryMethodChange}
     >
       {deliveryMethods?.result.map((method: Add_Delivery_Method) => (
