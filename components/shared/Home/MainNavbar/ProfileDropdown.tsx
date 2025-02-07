@@ -48,7 +48,7 @@ const ProfileDropdown = () => {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
 
-        {userData.roles.includes("ADMIN") && (
+        {userData.roles?.includes("ADMIN") && (
           <Link href="/admin">
             <DropdownMenuItem>
               Dashboard
