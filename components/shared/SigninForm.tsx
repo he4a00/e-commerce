@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
@@ -25,10 +25,12 @@ export function SigninForm() {
     redirect("/");
   }
 
-  const user = localStorage.getItem("user");
-  if (user) {
-    redirect("/");
-  }
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      redirect("/");
+    }
+  }, []);
 
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
