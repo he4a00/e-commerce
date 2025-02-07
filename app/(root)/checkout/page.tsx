@@ -1,10 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
 import { Truck, MapPin, CreditCard, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -14,6 +13,11 @@ import {
 } from "@/components/ui/card";
 import DeliveryChoose from "@/components/shared/Checkout/DeliveryChoose";
 import Address from "@/components/shared/Checkout/Address";
+import Payment from "@/components/shared/Checkout/Payment";
+import { usePlaceOrderMutation } from "@/app/store/slices/api/order/orderSlice";
+import { useGetAddressByUserQuery } from "@/app/store/slices/api/address/addressSlice";
+import { useGetUserCartQuery } from "@/app/store/slices/api/cart/cartSlice";
+import { toast } from "@/hooks/use-toast";
 
 const steps = [
   {
@@ -35,6 +39,14 @@ const steps = [
 
 export default function Checkout() {
   const [currentStep, setCurrentStep] = useState("delivery");
+  const [placeOrder, { isSuccess: isOrderSuccess, isLoading }] = usePlaceOrderMutation();
+  const { data: userAddresses } = useGetAddressByUserQuery({});
+  const [selectedDeliveryMethod, setSelectedDeliveryMethod] =
+    useState<string>("");
+
+  const { data: orderItems } = useGetUserCartQuery({});
+
+  console.log(userAddresses);
 
   const handleNext = () => {
     const currentIndex = steps.findIndex((step) => step.id === currentStep);
@@ -47,6 +59,31 @@ export default function Checkout() {
     const currentIndex = steps.findIndex((step) => step.id === currentStep);
     if (currentIndex > 0) {
       setCurrentStep(steps[currentIndex - 1].id);
+    }
+  };
+
+  const handleDeliveryMethodSelect = (methodId: string) => {
+    setSelectedDeliveryMethod(methodId);
+  };
+
+  const handlePlaceOrder = async () => {
+    const orderData = {
+      addressID: userAddresses?.result?.[0]?.addressID,
+      deliveryMethodID: selectedDeliveryMethod,
+      orderItems: orderItems?.cartItems?.map((item: any) => {
+        return {
+          productID: item.productID,
+          quantity: item.quantity,
+          price: item.price,
+        };
+      }),
+    };
+    await placeOrder(orderData);
+
+    if (isOrderSuccess) {
+      toast({
+        title: "Order placed successfully",
+      });
     }
   };
 
@@ -102,28 +139,15 @@ export default function Checkout() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {currentStep === "delivery" && <DeliveryChoose />}
+            {currentStep === "delivery" && (
+              <DeliveryChoose
+                onDeliveryMethodSelect={handleDeliveryMethodSelect}
+              />
+            )}
 
             {currentStep === "address" && <Address />}
 
-            {currentStep === "payment" && (
-              <div className="grid gap-4">
-                <div>
-                  <Label htmlFor="cardNumber">Card Number</Label>
-                  <Input id="cardNumber" placeholder="1234 5678 9012 3456" />
-                </div>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="col-span-2">
-                    <Label htmlFor="expiryDate">Expiry Date</Label>
-                    <Input id="expiryDate" placeholder="MM/YY" />
-                  </div>
-                  <div>
-                    <Label htmlFor="cvv">CVV</Label>
-                    <Input id="cvv" placeholder="123" />
-                  </div>
-                </div>
-              </div>
-            )}
+            {currentStep === "payment" && <Payment />}
 
             <div className="flex justify-between mt-8">
               <Button
@@ -134,8 +158,11 @@ export default function Checkout() {
                 Back
               </Button>
               <Button
-                onClick={handleNext}
+                onClick={
+                  currentStep === "payment" ? handlePlaceOrder : handleNext
+                }
                 className="bg-emerald-500 hover:bg-emerald-600"
+                disabled={isLoading}
               >
                 {currentStep === "payment" ? "Place Order" : "Continue"}
               </Button>

@@ -5,7 +5,10 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const page = () => {
-  const user = typeof window !== "undefined" ? localStorage.getItem("user") : null;
+  let user = null;
+  if (typeof window !== "undefined") {
+    user = localStorage.getItem("user");
+  }
   if (user) {
     redirect("/");
   }

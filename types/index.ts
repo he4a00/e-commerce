@@ -108,7 +108,7 @@ export type Add_Delivery_Method = {
 };
 
 export type Add_Address = {
-  addressID?:string;
+  addressID?: string;
   firstName: string;
   lastName: string;
   street: string;
@@ -118,5 +118,34 @@ export type Add_Address = {
   zipCode: string;
   phoneNumber: string;
   addressLine2: string;
-  fullName?:string
+  fullName?: string;
 };
+
+export type Add_Order = {
+  addressID: string;
+  deliveryMethodID: string;
+  orderItems: [
+    {
+      productID: string;
+      quantity: number;
+      price: number;
+    }
+  ];
+};
+
+
+export interface Order {
+  orderID: string;
+  orderDate: string;
+  orderItems: {
+    orderItemID: string;
+    price: number;
+    productImage: string;
+    productName: string;
+    quantity: number;
+  }[];
+  orderNumber: string;
+  orderStatus: string;
+  totalPrice: number;
+  userName?: string
+}

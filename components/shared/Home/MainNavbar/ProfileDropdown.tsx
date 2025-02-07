@@ -27,12 +27,14 @@ const ProfileDropdown = () => {
             <User className="w-5 h-5" />
           </DropdownMenuShortcut>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          Orders
-          <DropdownMenuShortcut>
-            <ShoppingBag className="w-5 h-5" />
-          </DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <Link href="/orders">
+          <DropdownMenuItem>
+            Orders
+            <DropdownMenuShortcut>
+              <ShoppingBag className="w-5 h-5" />
+            </DropdownMenuShortcut>
+          </DropdownMenuItem>
+        </Link>
         <DropdownMenuItem>
           Wishlist
           <DropdownMenuShortcut>

@@ -11,6 +11,7 @@ import { categorySlice } from "./slices/api/categories/cateogrySlice";
 import { cartSlice } from "./slices/api/cart/cartSlice";
 import { deliverySlice } from "./slices/api/delivery/deliverySlice";
 import { addressSlice } from "./slices/api/address/addressSlice";
+import { orderSlice } from "./slices/api/order/orderSlice";
 
 export const store = configureStore({
   reducer: {
@@ -25,6 +26,7 @@ export const store = configureStore({
     [cartSlice.reducerPath]: cartSlice.reducer,
     [deliverySlice.reducerPath]: deliverySlice.reducer,
     [addressSlice.reducerPath]: addressSlice.reducer,
+    [orderSlice.reducerPath]: orderSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -39,7 +41,7 @@ export const store = configureStore({
       cartSlice.middleware,
       deliverySlice.middleware,
       addressSlice.middleware,
-
+      orderSlice.middleware
     ),
 });
 

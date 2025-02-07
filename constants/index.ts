@@ -41,4 +41,11 @@ export const SidebarLinks = [
       { name: "Delivery", url: "delivery", icon: Tally4 },
     ],
   },
+  {
+    name: "Orders",
+    icon: Logs,
+    subLinks: [
+      { name: "Orders", url: "orders", icon: Tally4 },
+    ],
+  },
 ];
