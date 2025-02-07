@@ -2,15 +2,15 @@
 
 import { SignupForm } from "@/components/shared/SignupForm";
 import { redirect } from "next/navigation";
-import React, { useEffect } from "react";
 
 const SignUpPage = () => {
-  useEffect(() => {
+  const ISSERVER = typeof window === "undefined";
+  if (!ISSERVER) {
     const user = localStorage.getItem("user");
     if (user) {
       redirect("/");
     }
-  }, []);
+  }
   return (
     <div>
       <SignupForm />

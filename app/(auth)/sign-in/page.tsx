@@ -2,15 +2,15 @@
 
 import { SigninForm } from "@/components/shared/SigninForm";
 import { redirect } from "next/navigation";
-import { useEffect } from "react";
 
 const SignInPage = () => {
-  useEffect(() => {
+  const ISSERVER = typeof window === "undefined";
+  if (!ISSERVER) {
     const user = localStorage.getItem("user");
     if (user) {
       redirect("/");
     }
-  }, []);
+  }
 
   return (
     <div>
