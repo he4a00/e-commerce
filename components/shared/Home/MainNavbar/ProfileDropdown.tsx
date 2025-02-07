@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,8 +11,12 @@ import {
 import { Heart, Home, ShoppingBag, User } from "lucide-react";
 import LogoutButton from "./LogoutButton";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 const ProfileDropdown = () => {
-  const user = localStorage.getItem("user");
+  const [user, setUser] = useState<any>(null);
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+  }, []);
   const userData = JSON.parse(user || "{}");
   return (
     <DropdownMenu>

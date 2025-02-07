@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, User } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,10 @@ import Cart from "./Cart";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const user = localStorage.getItem("user");
+  const [user, setUser] = useState<any>(null);
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+  }, []);
 
   return (
     <nav className="border-b">
