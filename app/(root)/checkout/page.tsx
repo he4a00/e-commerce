@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Truck, MapPin, CreditCard, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,7 +17,6 @@ import Payment from "@/components/shared/Checkout/Payment";
 import { usePlaceOrderMutation } from "@/app/store/slices/api/order/orderSlice";
 import { useGetAddressByUserQuery } from "@/app/store/slices/api/address/addressSlice";
 import { useGetUserCartQuery } from "@/app/store/slices/api/cart/cartSlice";
-import { toast } from "@/hooks/use-toast";
 import { redirect } from "next/navigation";
 
 const steps = [
@@ -48,7 +47,11 @@ export default function Checkout() {
 
   const { data: orderItems } = useGetUserCartQuery({});
 
-  console.log(userAddresses);
+  useEffect(() => {
+    if (isOrderSuccess) {
+      redirect("/orders");
+    }
+  }, [isOrderSuccess]);
 
   const handleNext = () => {
     const currentIndex = steps.findIndex((step) => step.id === currentStep);
@@ -81,13 +84,6 @@ export default function Checkout() {
       }),
     };
     await placeOrder(orderData);
-
-    if (isOrderSuccess) {
-      toast({
-        title: "Order placed successfully",
-      });
-      redirect("/orders");
-    }
   };
 
   const canContinue =
