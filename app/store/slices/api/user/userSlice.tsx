@@ -35,6 +35,7 @@ export const userSlice = createApi({
       query: () => ({
         url: "Account/revokeToken",
         method: "POST",
+        body: { token: localStorage.getItem("token") },
       }),
       async onQueryStarted(_, { queryFulfilled }) {
         try {
