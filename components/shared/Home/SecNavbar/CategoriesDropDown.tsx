@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetAllSubCategoriesQuery } from "@/app/store/slices/api/categories/cateogrySlice";
+import { useGetParentCategoriesQuery } from "@/app/store/slices/api/categories/cateogrySlice";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,7 +18,7 @@ interface Category {
   categoryImageURL: string;
 }
 const CategoriesDropDown = () => {
-  const { data: allCategories } = useGetAllSubCategoriesQuery({});
+  const { data: allCategories } = useGetParentCategoriesQuery({});
 
   return (
     <DropdownMenu>
