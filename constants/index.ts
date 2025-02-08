@@ -44,3 +44,10 @@ export const SidebarLinks = [
     subLinks: [{ name: "Orders", url: "orders", icon: Tally4 }],
   },
 ];
+
+export const OrderStatus = [
+  { number: 0, status: "Pending" },
+  { number: 7, status: "Shipped" },
+  { number: 9, status: "Delivered" },
+  { number: 4, status: "Cancelled" },
+];

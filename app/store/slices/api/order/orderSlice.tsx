@@ -33,6 +33,20 @@ export const orderSlice = createApi({
       }),
       invalidatesTags: ["Orders"],
     }),
+    updateOrderStatus: builder.mutation({
+      query: ({
+        orderID,
+        orderStatus,
+      }: {
+        orderID: string;
+        orderStatus: string;
+      }) => ({
+        url: `Order/updateOrderStatus`,
+        method: "PUT",
+        body: { orderStatus, orderID },
+      }),
+      invalidatesTags: ["Orders"],
+    }),
   }),
 });
 
@@ -41,4 +55,5 @@ export const {
   useGetOrdersByUserQuery,
   useGetAllOrdersQuery,
   useDeleteOrderMutation,
+  useUpdateOrderStatusMutation,
 } = orderSlice;

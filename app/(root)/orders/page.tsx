@@ -37,13 +37,13 @@ import { Order } from "@/types";
 // Status badge styling helper
 const getStatusColor = (status: string) => {
   switch (status) {
-    case "processing":
+    case "Pending":
       return "bg-blue-100 text-blue-800";
-    case "shipped":
+    case "Shipped":
       return "bg-yellow-100 text-yellow-800";
-    case "delivered":
+    case "Delivered":
       return "bg-green-100 text-green-800";
-    case "cancelled":
+    case "Cancelled":
       return "bg-red-100 text-red-800";
     default:
       return "bg-gray-100 text-gray-800";
@@ -102,10 +102,11 @@ export default function OrdersPage() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
               {(
-                ["processing", "shipped", "delivered", "cancelled"] as string[]
+                ["Pending", "Shipped", "Delivered", "Cancelled"] as string[]
               ).map((status) => (
                 <DropdownMenuCheckboxItem
                   key={status}
+
                   checked={statusFilter.includes(status)}
                   onCheckedChange={(checked) => {
                     setStatusFilter(

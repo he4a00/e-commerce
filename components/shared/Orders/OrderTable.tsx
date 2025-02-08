@@ -13,11 +13,12 @@ import { Order } from "@/types";
 import Loader from "../Loader";
 import { useGetAllOrdersQuery } from "@/app/store/slices/api/order/orderSlice";
 import DeleteOrderButton from "./DeleteOrderButton";
+import UpdateStatusDropDown from "./UpdateStatusDropDown";
 
 export function OrderTable() {
   const { data: allOrders, isLoading } = useGetAllOrdersQuery({});
 
-  console.log(allOrders?.result)
+  console.log(allOrders?.result);
 
   if (isLoading) {
     return <Loader />;
@@ -46,11 +47,15 @@ export function OrderTable() {
         {allOrders?.result?.map((order: Order) => (
           <TableRow key={order.orderID}>
             <TableCell className="font-medium">{order.orderNumber}</TableCell>
-            <TableCell className="font-medium">{order.orderItems.length}</TableCell>
-            <TableCell className="font-medium">{order.orderStatus}</TableCell>
+            <TableCell className="font-medium">
+              {order.orderItems.length}
+            </TableCell>
+            <TableCell className="font-medium">
+              <UpdateStatusDropDown orderID={order.orderID || ""} orderStatus={order.orderStatus} />
+            </TableCell>
             <TableCell className="font-medium">{order.totalPrice}</TableCell>
             <TableCell className="font-medium">
-            {format(new Date(order.orderDate), "MMMM d, yyyy")}
+              {format(new Date(order.orderDate), "MMMM d, yyyy")}
             </TableCell>
             <TableCell className="font-medium">{order.userName}</TableCell>
             <TableCell className="text-right">
