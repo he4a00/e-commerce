@@ -1,6 +1,7 @@
 import "../globals.css";
 import QueryProvider from "@/components/providers/QueryProvider";
 import { RTKProvider } from "@/components/providers/RTKProvider";
+import Footer from "@/components/shared/Home/Foote";
 import MainNavbar from "@/components/shared/Home/MainNavbar/MainNavbar";
 import SecNavbar from "@/components/shared/Home/SecNavbar/SecNavbar";
 import { Toaster } from "@/components/ui/toaster";
@@ -26,6 +27,7 @@ export default function RootLayout({
             <SecNavbar />
             {children}
             <Toaster />
+            <Footer />
           </body>
         </RTKProvider>
       </QueryProvider>

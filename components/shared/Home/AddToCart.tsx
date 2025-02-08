@@ -4,6 +4,7 @@ import { useAddProductToCartMutation } from "@/app/store/slices/api/cart/cartSli
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { ShoppingCart, Plus, Minus } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface AddToCartButtonProps {
@@ -27,9 +28,16 @@ const AddToCart = ({
   variant = "default",
 }: AddToCartButtonProps) => {
   const [quantity, setQuantity] = useState(1);
+  const [user, setUser] = useState<string | null>(null);
   const [addProductToCart, { isLoading, isSuccess }] =
     useAddProductToCartMutation();
   const { toast } = useToast();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+  }, []);
 
   useEffect(() => {
     if (isSuccess) {
@@ -60,6 +68,10 @@ const AddToCart = ({
     if (quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
+  };
+
+  const redirectToLogin = () => {
+    router.push("/sign-in");
   };
 
   return (
@@ -93,7 +105,7 @@ const AddToCart = ({
             : "bg-gray-300 dark:bg-gray-700"
         }`}
         disabled={stockQuantity === 0 || isLoading}
-        onClick={handleAddToCart}
+        onClick={user ? handleAddToCart : redirectToLogin}
       >
         <ShoppingCart className="mr-2 h-5 w-5" />
         {stockQuantity === 0 ? "Out of Stock" : "Add to Cart"}

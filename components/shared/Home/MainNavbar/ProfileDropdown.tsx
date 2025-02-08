@@ -10,13 +10,13 @@ import {
 import { Heart, Home, ShoppingBag, User } from "lucide-react";
 import LogoutButton from "./LogoutButton";
 import Link from "next/link";
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 const ProfileDropdown = () => {
-  // const [user, setUser] = useState<any>(null);
-  // useEffect(() => {
-  //   setUser(localStorage.getItem("user"));
-  // }, []);
-  // const userData = JSON.parse(user || "{}");
+  const [user, setUser] = useState<string | null>(null);
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+  }, []);
+  const userData = JSON.parse(user || "{}");
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -41,16 +41,16 @@ const ProfileDropdown = () => {
         </DropdownMenuItem>
         <DropdownMenuSeparator />
 
-        {/* {userData.roles?.includes("ADMIN") && ( */}
-        <Link href="/admin">
-          <DropdownMenuItem>
-            Dashboard
-            <DropdownMenuShortcut>
-              <Home className="w-5 h-5" />
-            </DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </Link>
-        {/* )} */}
+        {userData.roles?.includes("ADMIN") && (
+          <Link href="/admin">
+            <DropdownMenuItem>
+              Dashboard
+              <DropdownMenuShortcut>
+                <Home className="w-5 h-5" />
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </Link>
+        )}
 
         <DropdownMenuSeparator />
         <DropdownMenuItem>

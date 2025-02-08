@@ -3,6 +3,8 @@
 import { useAddProductToWishlistMutation } from "@/app/store/slices/api/wishlist/wishlistSlice";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const AddToWishlist = ({
   productID,
@@ -13,6 +15,15 @@ const AddToWishlist = ({
 }) => {
   const [addProductToWishlist, { isLoading }] =
     useAddProductToWishlistMutation();
+  const [user, setUser] = useState<string | null>(null);
+  useEffect(() => {
+    setUser(localStorage.getItem("user"));
+  }, []);
+  const router = useRouter();
+  const redirectToLogin = () => {
+    router.push("/sign-in");
+  };
+
   return (
     <Button
       variant="secondary"
@@ -20,7 +31,7 @@ const AddToWishlist = ({
       className={`hover:bg-green-400 dark:hover:bg-gray-800/90 shadow-lg h-12 px-7 bg-green-500 ${
         isInWishlist ? "bg-red-700" : ""
       }`}
-      onClick={() => addProductToWishlist(productID)}
+      onClick={user ? () => addProductToWishlist(productID) : redirectToLogin}
       disabled={isLoading || isInWishlist}
     >
       <Heart
